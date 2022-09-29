@@ -10,7 +10,7 @@ export const reqCategoryList = () => {
 export const reqGetBannerList =()=>{
     return mockAjax.get('/banner')
 }
-//获取首页轮播图
+//获取floor数据
 export const reqGetFloors =()=>{
     return mockAjax.get('/floors')
 }

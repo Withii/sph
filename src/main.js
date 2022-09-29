@@ -12,6 +12,9 @@ import store from '@/store'
 import  '@/mock/mockserve'
 // 引入 Swiper 样式
 import 'swiper/css/swiper.min.css';
+//引入轮播图组件
+import Carousel from "@/components/carousel/Carousel";
+Vue.component(Carousel.name,Carousel)
 Vue.config.productionTip = false
 
 
