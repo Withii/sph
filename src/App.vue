@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <MyHeader/>
+    <router-view></router-view>
+<!--    在注册和登录页 footer组件隐藏-->
+    <MyFooter v-if="$route.meta.isShow"/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyHeader from "@/components/Header";
+import MyFooter from "@/components/Footer";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    MyHeader, MyFooter
+  },
+  mounted() {
+    //获取三级联动组件数据 让该条只发送一次
+    //  通知vuex发请求 ，获取数据，存储在仓库中 派遣actions
+    this.$store.dispatch('categoryList')
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="less">
+
 </style>
