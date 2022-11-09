@@ -121,11 +121,11 @@ export default {
       if (categoryname) {
         //  判断1、2、3级菜单
         if (category1id) {
-          query.categor1id = category1id
+          query.category1Id = category1id
         } else if (category2id) {
-          query.categor2id = category2id
+          query.category2Id = category2id
         } else {
-          query.categor3id = category3id
+          query.category3Id = category3id
         }
       }
       //判断路由是否存在params参数

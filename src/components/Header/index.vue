@@ -6,14 +6,18 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
+          </p >
+          <p v-else>
+            <a >{{userName}}</a>
+            <a class="register"  @click="logout"> 退出登录</a>
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
+          <router-link to="/center/myorder">我的订单</router-link>
           <a href="###">我的购物车</a>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
@@ -33,7 +37,7 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyWord"/>
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
           <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
         </form>
       </div>
@@ -46,7 +50,7 @@ export default {
   name: "index",
   data() {
     return {
-      keyWord: ''
+      keyword: ''
     }
   },
   methods: {
@@ -60,14 +64,38 @@ export default {
       if (this.$route.query) {
         let location = {
           name: "search",
-          params: {keyWord: this.keyWord || undefined},
+          params: {keyword: this.keyword || undefined},
         }
-        location.query=this.$route.query
+        location.query = this.$route.query
         this.$router.push(location)
       }
-      console.log(this.keyWord)
-    }
-  }
+    },
+    //退出登录
+    //1 发送请求通知服务器退出登录  【清除一些数据 token】
+
+    //2 清除项目中的数据，【userInfo 、token】
+    logout() {
+     try{
+       this.$store.dispatch('userLogout')
+     //  路由跳转
+       this.$router.push('home')
+     }catch (e) {
+       alert(e.message)
+     }
+    },
+  },
+  computed: {
+    //用户名
+    userName() {
+      return this.$store.state.user.userInfo.name
+    },
+  },
+  mounted() {
+    //  通过全局事件总线 清楚关键字信息
+    this.$bus.$on("cleat", () => {
+      this.keyword = ""
+    })
+  },
 }
 </script>
 

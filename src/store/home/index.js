@@ -1,5 +1,5 @@
 //state :仓库存储数据的地方
-import {reqCategoryList, reqGetBannerList, reqGetFloors} from "@/api";
+import {reqCategoryList, reqGetBannerList, reqGetFloors} from "@/api/ajax";
 //Home模块小仓库
 const state = {
     //state中的数据默认初始值不能瞎写
@@ -24,7 +24,6 @@ const actions = {
 //    通过api中的接口函数，向服务器发送请求
     async categoryList({commit}) {
         let result = await reqCategoryList()
-        console.log('>>>>執行了', result)
         if (result.code === 200) {
             commit("CATEGORYLIST", result.data)
         }
